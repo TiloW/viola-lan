@@ -1,5 +1,10 @@
 require_relative 'Item'
 
+# A stack consisting of multiple items.
+# Items can only be added in the constructor.
+# All items to be pushed to this stack at a later point in time
+# must be located on top of some other stack.
+#
 class Stack
   def initialize(name, maxItemCount, itemArray)
     raise ArgumentError, 'item array length exceeds maximum number of items' if maxItemCount < itemArray.size

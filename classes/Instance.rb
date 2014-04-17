@@ -1,5 +1,8 @@
 require_relative 'Stack'
 
+# Class for describing an instance of the BRP.
+# Also holds the LA-N algorithm for solving it.
+#
 class Instance
   def initialize(maxItemCount, stackArray)
     @maxItemCount = maxItemCount
@@ -18,7 +21,7 @@ class Instance
       # Step 1
       nextItem = getNextItem
       if nextItem.isTop
-        nextItem.retrieve
+        nextItem.getStack.pop
         actions.push "retrieving #{nextItem}"
       else
 

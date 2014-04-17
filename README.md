@@ -1,4 +1,4 @@
-This project contains a implementation of the LA-N algorithm for approximating BRP solutions given by Petering et. al. in "A new mixed integer program and extended look-ahead heuristic
+This project contains an implementation of the LA-N algorithm for approximating BRP solutions given by Petering et. al. in "A new mixed integer program and extended look-ahead heuristic
 algorithm for the block relocation problem" (2013).
 
 It is intented primarily for comparing the LA-N algorithms for varying Ns. 

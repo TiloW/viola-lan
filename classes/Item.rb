@@ -1,5 +1,11 @@
 require_relative 'Stack'
 
+# Item with associated order and a stack.
+# While the item does not assert it is located in the supplied stack,
+# one should only give a stack in the constructor the item will actually
+# be added to.
+# Can be compared by its order.
+#
 class Item
   include Comparable
 
@@ -27,11 +33,6 @@ class Item
 
   def isTop
     @stack.getTop == self
-  end
-
-  def retrieve
-    raise ArgumentError, 'item to be retrieved must be top item' unless @stack.getTop == self
-    @stack.pop
   end
 
   def to_s
