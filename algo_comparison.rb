@@ -35,7 +35,7 @@ else
     instance = generateRandomInstance
     instanceCopy =  Marshal.load Marshal.dump instance
     instanceDesc = instance.to_s
-    value = instance.solve(1).to_f / instanceCopy.solve(3)
+    value = instance.solve(1).size.to_f / instanceCopy.solve(3).size
     if value > bestValue
       bestValue = value
       bestInstanceDesc = instanceDesc

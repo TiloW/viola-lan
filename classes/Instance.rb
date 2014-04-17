@@ -10,25 +10,20 @@ class Instance
   end
 
   def solve(lookAhead = 1)
-    actionCounter = 0
+    actions = []
     raise ArgumentError, 'parameter lookAhead must at least 1' if lookAhead < 1
 
     relocCounter = 0
     while countItems > 0 do
-      # puts to_s
       # Step 1
       nextItem = getNextItem
-      # puts "--\nnextItem: #{nextItem}"
       if nextItem.isTop
         nextItem.retrieve
-        # puts "retrieving #{nextItem}"
-        actionCounter += 1
+        actions.push "retrieving #{nextItem}"
       else
 
         # Step 2
-        # puts "ci #{countItems}"
         n = [lookAhead, countItems].min
-        # print "n initialized with #{n}.. "
         n += 1
         # Step 3
         nextItems = nil
@@ -42,16 +37,12 @@ class Instance
           otherStacksNotFull = otherStacks.map{ |s| s.isFull }.include? false
         end while nextStacks.size == @stacks.size || !otherStacksNotFull
 
-        # puts "-> n = #{n} !"
         r = 1
         while true do
 
           # Step 4
-          # puts "nextItems #{nextItems}"
-          # puts "nextStacks #{nextStacks}"
           topItems = nextStacks.map{ |s| s.getTop }.sort
           currentItem = topItems[-r]
-          # puts "  currentItem: #{currentItem} (r=#{r})"
           relocateCurrent = currentItem.getStack == nextItem.getStack
 
           # Step 5
@@ -64,8 +55,6 @@ class Instance
             end
             relocateCurrent = !relocationStacks.empty? && currentItem != currentItem.getStack.getLowestItem
           end
-          # puts "  currentStack: #{currentItem.getStack}"
-          # puts "  relocationStacks: #{relocationStacks}"
 
           # Step 6
           if relocateCurrent
@@ -75,8 +64,7 @@ class Instance
             else
               targetStack = relocationStacks.sort_by{ |s| s.isEmpty ? -Float::INFINITY : s.getLowestItem.getOrder }[0]
             end
-            # puts "relocating #{currentItem} from #{currentItem.getStack} to #{targetStack}"
-            actionCounter += 1
+            actions.push "relocating #{currentItem} from #{currentItem.getStack} to #{targetStack}"
             targetStack.push currentItem
             break
           else
@@ -85,8 +73,7 @@ class Instance
         end
       end
     end
-    # puts "\nneeded #{actionCounter} actions!"
-    actionCounter
+    actions
   end
 
   def countItems
