@@ -5,6 +5,7 @@ require_relative 'Stack'
 #
 class Instance
   def initialize(maxItemCount, stackArray)
+    raise ArgumentError, 'there can only be one item with a specific order' unless stackArray.flatten.uniq.size == stackArray.flatten.size
     @maxItemCount = maxItemCount
     @stacks = []
     stackArray.each_with_index do |s,i|

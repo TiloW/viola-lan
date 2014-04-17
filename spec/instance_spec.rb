@@ -16,19 +16,23 @@ describe Instance do
     ]
   end
 
-  it "can apply LA-1" do
+  it 'can not hold multiple items with the same order' do
+    expect{ Instance.new Float::INFINITY, [[1,2],[3,2]] }.to raise_error
+  end
+
+  it 'can apply LA-1' do
     expect(@instanceA.solve(1).size).to eq 16
     expect(@instanceB.solve(1).size).to eq 16
     expect(@instanceC.solve(1).size).to eq 17
   end
 
-  it "can apply LA-2" do
+  it 'can apply LA-2' do
     expect(@instanceA.solve(2).size).to eq 15
     expect(@instanceB.solve(2).size).to eq 17
     expect(@instanceC.solve(2).size).to eq 12
   end
 
-  it "can apply LA-3" do
+  it 'can apply LA-3' do
     expect(@instanceA.solve(3).size).to eq 15
     expect(@instanceB.solve(3).size).to eq 17
     expect(@instanceC.solve(3).size).to eq 12
