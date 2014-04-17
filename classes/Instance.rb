@@ -42,7 +42,8 @@ class Instance
         end while nextStacks.size == @stacks.size || !otherStacksNotFull
 
         r = 1
-        while true do
+        relocateCurrent = false
+        until relocateCurrent do
 
           # Step 4
           topItems = nextStacks.map{ |s| s.getTop }.sort
@@ -70,7 +71,6 @@ class Instance
             end
             actions.push "relocating #{currentItem} from #{currentItem.getStack} to #{targetStack}"
             targetStack.push currentItem
-            break
           else
             r += 1
           end
