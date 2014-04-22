@@ -23,7 +23,7 @@ class Instance
       nextItem = getNextItem
       if nextItem.isTop
         nextItem.getStack.pop
-        actions.push "retrieving #{nextItem}"
+        actions.push "retrieving #{nextItem} from stack #{nextItem.getStack}"
       else
 
         # Step 2
@@ -51,15 +51,13 @@ class Instance
           relocateCurrent = currentItem.getStack == nextItem.getStack
 
           # Step 5
-          relocationStacks = []
-          unless relocateCurrent
-            relocationStacks = @stacks.dup.keep_if do |stack|
-              stack.isEmpty ||
-                stack.getLowestItem.getOrder > currentItem.getOrder &&
-                !stack.isFull
-            end
-            relocateCurrent = !relocationStacks.empty? && currentItem != currentItem.getStack.getLowestItem
+          relocationStacks = @stacks.dup.keep_if do |stack|
+            stack.isEmpty ||
+              stack.getLowestItem.getOrder > currentItem.getOrder &&
+              !stack.isFull
           end
+
+          relocateCurrent |= !relocationStacks.empty? && currentItem != currentItem.getStack.getLowestItem
 
           # Step 6
           if relocateCurrent
